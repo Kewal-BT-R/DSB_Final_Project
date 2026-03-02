@@ -61,16 +61,26 @@ Landlords can optimize pricing by benchmarking against similar properties in the
 
 ----
 
-Part 1 - Data loading & initial exploration
+## Files
 
-Part 2 - Data cleaning & preprocessing
+**[Part 1](./Final_Project_pt1.ipynb)** - Data loading & initial exploration
 
-Part 3 - Feature engineering
+**[Part 2](./Final_Project_pt2.ipynb)** - Data cleaning & preprocessing
 
-Part 4 - Exploratory data analysis
+**[Part 3](./Final_Project_pt3.ipynb)** - Feature engineering
 
-Part 5 - Baseline modeling (Linear Regression)
+**[Part 4](./Final_Project_pt4.ipynb)** - Exploratory data analysis
 
-Part 6 - Advanced modeling (Random Forest)
+**[Part 5](./Final_Project_pt5.ipynb)** - Baseline modeling (Linear Regression)
 
-Part 7 - Results & interpretation
+**[Part 6](./Final_Project_pt6.ipynb)** - Advanced modeling (Random Forest)
+
+**[Part 7](./Final_Project_pt7.ipynb)** - Results & interpretation
+
+----
+
+## Tools Used
+
+- **Python** (Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn)
+- **Jupyter Notebook**
+- **Machine Learning:** Linear Regression, Random Forest
