@@ -13,74 +13,93 @@ Please make sure to place it in the project root directory as:
 
 ## What factors drive rental prices across London?
 
-This project analyzed over 3,700 London rental listings to identify the key drivers of rent prices and built a predictive model to estimate rental costs based on property characteristics.
+This project analyzed over 390,000 London rental listings to identify the key drivers of rent prices and built a predictive model to estimate rental costs based on property characteristics.
 
 ----
 
 ## Key Findings
+
 ### Top 3 Price Drivers:
 
-#### 1. Property Type — Houses rent for significantly more than flats/studios
-#### 2. Number of Bedrooms — Each additional bedroom increases rent by approximately £400-500/month
-#### 3. Location (Borough) — Central/West London boroughs command 40-60% premiums over outer areas
+1. **Floor Area:** The single strongest predictor (48% importance). Larger properties command significantly higher rents.
+2. **Location (Latitude/Longitude):** Combined 38% importance. Geographic position within London has massive impact on pricing.
+3. **Bathrooms:** 7% importance. Number of bathrooms matters more than bedrooms for rental pricing.
 
 ## Model Performance:
 
-* Achieved **R² = 0.78** using Random Forest Regressor
-* Mean Absolute Error: £350/month
-* Model accurately predicts rental prices within 15-20% for most properties
+* Achieved **R² = 0.9551** using Random Forest Regressor (tuned)
+* Mean Absolute Error: £197.50/month
+* Root Mean Squared Error: £738.97/month
+* Model accurately predicts rental prices within 3-5% for most properties
 
-## Actionable Insight:
-Landlords can optimize pricing by benchmarking against similar properties in the same borough with matching bedroom counts. Renters should prioritize location and property type as the primary cost factors.
+### Unexpected Insight:
+Number of bedrooms (5% importance) and living rooms (2% importance) have surprisingly low impact on rent compared to total floor area, suggesting renters and landlords price based on total space rather than room configuration.
 
 ----
 
 ## Methodology
-### 1. Data Collection & Cleaning
 
-* **Source:** Kaggle London Housing Dataset (3,700+ listings)
-* **Cleaning:** Removed duplicates, handled missing values, standardized borough names
-* **Feature Engineering:** Created price-per-bedroom, distance-to-center, and categorical encodings
+### 1. Problem Statement & Objectives
+* Defined research question: Which property features most strongly influence London rental prices?
+* Established evaluation criteria for model comparison
 
-### 2. Exploratory Analysis
+### 2. Exploratory Data Analysis
+* Analyzed 390,000+ rental listings across London
+* Visualized price distributions across boroughs, property types, and features
+* Identified missing data patterns and outliers
 
-* Visualized price distributions across boroughs, property types, and bedroom counts
-* Identified outliers and seasonal trends
-* Correlation analysis to isolate key predictors
+### 3. Feature Engineering & Preprocessing
+* **Data Cleaning:** Removed duplicates, handled 25k+ missing floor area values using median imputation
+* **Feature Engineering:** 
+  - Created `price_per_sqm` metric
+  - Calculated distance from city center using Haversine formula
+  - One-hot encoded categorical variables (tenure, property type)
+* **Scaling:** Standardized numeric features using StandardScaler
 
-### 3. Modeling
+### 4. Modeling Approaches
+* **Baseline:** Linear Regression (R² = 0.49, MAE = £1,244)
+* **Random Forest:** Initial model (R² = 0.93, MAE = £319)
+* **XGBoost:** Alternative tree-based model (R² = 0.79, MAE = £763)
+* **Neural Network:** Deep learning approach (R² = 0.48, MAE = £1,270) — underperformed due to overfitting
 
-* Baseline: Linear Regression (R² = 0.64)
-* Final Model: Random Forest Regressor (R² = 0.78)
-* Validation: 80/20 train-test split with cross-validation
+### 5. Hyperparameter Tuning
+* Tuned Random Forest using GridSearchCV
+* Optimized: `n_estimators`, `max_depth`, `min_samples_split`, `min_samples_leaf`
+* **Final Model:** Random Forest with tuned parameters achieved R² = 0.9551
 
-### 4. Results & Interpretation
+### 6. Model Comparison & Feature Importance
+* Random Forest (tuned) significantly outperformed all other models
+* Feature importance analysis revealed floor area as dominant predictor
+* Location (lat/lon) second most important, room counts had minimal impact
 
-* Feature importance analysis confirmed location and property type as dominant factors
-* Residual analysis showed model performs well across price ranges except luxury segment (£5k+/month)
+### 7. Visualization & Reporting
+* Created performance comparison charts across all models
+* Visualized feature importance rankings
+* Generated insights for stakeholders
 
 ----
 
 ## Files
 
-**[Part 1](./Final_Project_pt1.ipynb)** - Data loading & initial exploration
+**[Part 1](./Final_Project_pt1.ipynb)** - Problem Statement and Objectives
 
-**[Part 2](./Final_Project_pt2.ipynb)** - Data cleaning & preprocessing
+**[Part 2](./Final_Project_pt2.ipynb)** - Exploratory Data Analysis
 
-**[Part 3](./Final_Project_pt3.ipynb)** - Feature engineering
+**[Part 3](./Final_Project_pt3.ipynb)** - Feature Engineering & Preprocessing
 
-**[Part 4](./Final_Project_pt4.ipynb)** - Exploratory data analysis
+**[Part 4](./Final_Project_pt4.ipynb)** - Modeling Approaches (Linear Regression, Random Forest, XGBoost, Neural Network)
 
-**[Part 5](./Final_Project_pt5.ipynb)** - Baseline modeling (Linear Regression)
+**[Part 5](./Final_Project_pt5.ipynb)** - Evaluation & Hyperparameter Tuning
 
-**[Part 6](./Final_Project_pt6.ipynb)** - Advanced modeling (Random Forest)
+**[Part 6](./Final_Project_pt6.ipynb)** - Model Comparison & Insights
 
-**[Part 7](./Final_Project_pt7.ipynb)** - Results & interpretation
+**[Part 7](./Final_Project_pt7.ipynb)** - Visualization & Reporting
 
 ----
 
 ## Tools Used
 
-- **Python** (Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn)
+- **Python** (Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, TensorFlow/Keras)
 - **Jupyter Notebook**
-- **Machine Learning:** Linear Regression, Random Forest
+- **Machine Learning:** Linear Regression, Random Forest, XGBoost, Neural Networks
+- **Techniques:** Cross-validation, GridSearchCV, Feature Engineering, StandardScaler
